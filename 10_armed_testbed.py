@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import trange
 
-matplotlib.use('Agg')
+# matplotlib.use('Agg')
 
 
 class Bandit:
@@ -116,11 +116,20 @@ def simulate(runs, time, bandits):
 
 
 def figure_2_1():
-    plt.violinplot(dataset=np.random.randn(200, 10) + np.random.randn(10))
+    plt.figure(figsize=(10, 10))
+    # ax = plt.axes([0,0,1,1], frameon=True)
+    plt.violinplot(dataset=np.random.randn(20000, 10) + np.random.randn(10), showmeans=True, showextrema=False)
     plt.xlabel("Action")
     plt.ylabel("Reward distribution")
     plt.savefig('figure_2_1.png')
-    plt.close()
+    plt.yticks(range(-3,4))
+    plt.xticks(range(1,11))
+    plt.margins(0)
+    # plt.axes.get_yaxis.set_visible(False)
+    # plt.axis('off')
+    # ax.get_yaxis().set_visible(False)
+    # plt.close()
+    plt.show()
 
 
 def figure_2_2(runs=2000, time=1000):
@@ -128,7 +137,7 @@ def figure_2_2(runs=2000, time=1000):
     bandits = [Bandit(epsilon=eps, sample_averages=True) for eps in epsilons]
     best_action_counts, rewards = simulate(runs, time, bandits)
 
-    plt.figure(figsize=(10, 20))
+    plt.figure(figsize=(20, 20))
 
     plt.subplot(2, 1, 1)
     for eps, rewards in zip(epsilons, rewards):
@@ -237,8 +246,8 @@ def figure_2_6(runs=2000, time=1000):
 
 if __name__ == '__main__':
     figure_2_1()
-    figure_2_2()
-    figure_2_3()
-    figure_2_4()
-    figure_2_5()
-    figure_2_6()
+    # figure_2_2()
+    # figure_2_3()
+    # figure_2_4()
+    # figure_2_5()
+    # figure_2_6()
