@@ -86,6 +86,9 @@ class Bandit:
             return np.random.choice(self.indices, p=self.action_prob)
 
         q_best = np.max(self.q_estimation)
+        best = np.where(self.q_estimation == q_best)[0]
+        print('best ', best)
+        print('randome choice: ', np.random.choice(best))
         return np.random.choice(np.where(self.q_estimation == q_best)[0])
 
     # take an action, update estimation for this action
