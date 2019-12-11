@@ -3,61 +3,81 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-k_armed = range(10)
-rewards = {}
+'''
+
+Problem
+
+k options
+each choice get 1 reward form a stationary probability distribution
+maximize the expected total reward over some time period, 1000 example 
+
+Example: 
+10 options
+Choose 1 k at every step
+Random
+choose k1 get r1
+choose k2 get r2
+...
+choose k1000 get r1000
+
+E(total)
+
+
+
+Using q value function to choose k
+
+calculate q value function of all k at every step
+
+Greedy
+Choose k with the max q
+
+
+
+'''
+
+def q_function(action):
+
+  return value
+
+
+def get_action(q_scores):
+  action = -1
+  value = -1
+  for act, val in q_scores.items():
+    if value < val:
+      action = act
+
+
+  return action
+
+runs = 1
+
 time_steps = 1000
-runs = 2000
+k_arms = range(10)
+epsilon = 0
 
-# for k in k_armed:
-#   rewards[k] = []
-#   for t in range(time_steps):
-#     time_step_rewards = []
-#     for i in range(runs):
+rewards_by_actions ={}
+expected_rewards = []
+q_scores = {}
 
-#       time_step_rewards.append(random.gauss(0, 1))
-#     rewards[k].append(np.mean(time_step_rewards))
+for k in k_arms:
+  q_scores[k] = np.random.rand()
+  rewards_by_actions[k] = []
 
-# print(rewards)
-# epsilon:
+for r in range(runs):
+  rewards = []
+  for i in range(time_steps):
+    
+    reward = np.random.rand()
+    if reward < epsilon:
+      action = np.random.choice(k_arms)
+    else:
+      action = get_action(q_scores)
+    rewards_by_actions[action].append(reward)
+    q_scores[action] = sum(rewards_by_actions[action]) / len(rewards_by_actions[action])
+    expected_rewards.append(q_scores[action])
 
-# for t in range(time_steps)]
-
-# k armed bandits
-# rewards for each bandits generate by gaussian distribution N(0, 1)
-# select a based on max rewards of all bandit
-
-# calculate average reward after all
-# rewards = {}
-
-average_rewards = []
-actions = []
-for k in k_armed:
-    rewards[k] = []
-
-
-
-# for r in range(runs):
-for i in range(time_steps):
-
-  max = 0
-  selected_k = 0
-  for k in k_armed:
-    reward = np.random.normal(0 ,1)
-    rewards[k].append(reward)
-    average = sum(rewards[k])/len(rewards[k])
-    if max < reward:
-      max = reward
-      select_k = k
-
-  average_rewards.append(max)
-  actions.append(selected_k)
-
-# for 
-
-plt.plot(range(time_steps), average_rewards)
+# print('Actions values: ', rewards_by_actions)
+# print(expected_rewards)
+plt.plot(range(time_steps), expected_rewards)
 plt.show()
-
-
-
-
-  
