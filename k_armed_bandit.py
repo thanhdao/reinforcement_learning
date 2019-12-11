@@ -79,5 +79,29 @@ for r in range(runs):
 
 # print('Actions values: ', rewards_by_actions)
 # print(expected_rewards)
-plt.plot(range(time_steps), expected_rewards)
+figure = plt.figure(figsize=(10,10))
+ax1 = figure.add_axes([0,0,0.5,0.5])
+plt.yticks(range(-3,3))
+plt.xticks(range(1000))
+ax1.plot(range(time_steps), expected_rewards)
+
+
+
+
+ax2 = figure.add_axes([0,0.5,0.5,0.5])
+all_data = [[random.gauss(0,1) for j in range(2000)] for k in range(1, 11)]
+  
+# plot violin plot
+ax2.violinplot(all_data,showextrema=True,
+                   showmeans=True,
+                   showmedians=False)
+plt.title('Violin plot')
+plt.yticks(range(-3,3))
+plt.xticks(range(1,11))
+
 plt.show()
+
+# 10-armed test bed
+# data_len = 2000
+# for i in range(data_len):
+
